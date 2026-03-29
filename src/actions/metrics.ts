@@ -108,7 +108,7 @@ import { cache } from "react";
 // -------------------------------------------------------------
 export const getDashboardPayload = cache(async () => {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await getCachedUser();
 
   if (!user) return null;
 
@@ -171,4 +171,19 @@ export const getDashboardPayload = cache(async () => {
     smoothedTrendWeight: smoothedTrend, // Emitted safely specifically mapping the primary Trend metric
     medications: todayMeds as any,
   };
+});
+
+import { getCachedUser } from "@/lib/supabase/server";
+
+// -------------------------------------------------------------
+// Lightweight Profile Fetcher (Decoupled from monolithic layout)
+// -------------------------------------------------------------
+export const getUserProfilePayload = cache(async () => {
+  const { data: { user } } = await getCachedUser();
+  if (!user) return null;
+
+  const supabase = await createClient();
+  const { data: userProfile } = await supabase.from("users").select("*").eq("id", user.id).single();
+
+  return { userProfile: userProfile as any };
 });

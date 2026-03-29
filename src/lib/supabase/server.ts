@@ -26,3 +26,11 @@ export async function createClient() {
     }
   )
 }
+
+import { cache } from "react";
+
+// Secure Next.js Edge Auth cache wrapping preventing identical triplicate SQL pings per route transition natively.
+export const getCachedUser = cache(async () => {
+  const supabase = await createClient();
+  return await supabase.auth.getUser();
+});
