@@ -14,7 +14,7 @@ export default async function Home() {
     redirect("/login");
   }
 
-  const { userProfile, dailyMetrics, totalCalories, past7DaysWeight, medications } = data;
+  const { userProfile, dailyMetrics, totalCalories, past7DaysWeight, smoothedTrendWeight, medications } = data;
 
   // Progress Calculations natively protecting against divide-by-zero limits
   const stepsGoal = userProfile.daily_step_goal || 10000;
@@ -39,8 +39,8 @@ export default async function Home() {
     ? parseFloat(dailyMetrics.weight_kg) 
     : parseFloat(userProfile.current_weight_kg) || 0;
     
-  // Simple trend logic for baseline UI
-  const trendWeight = past7DaysWeight.length > 1 ? past7DaysWeight[past7DaysWeight.length - 2] : displayWeight;
+  // Utilize the aggressively smoothed backend AI limit mapping
+  const trendWeight = smoothedTrendWeight || displayWeight;
 
   return (
     <div className="w-full flex flex-col gap-8 pb-10">
@@ -95,13 +95,13 @@ export default async function Home() {
       <section className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-surface rounded-2xl p-5 border border-gray-100 flex flex-col gap-1 shadow-sm fluid-transition hover:border-primary/40 cursor-pointer">
           <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Steps</span>
-          <span className="text-2xl font-extrabold text-foreground mt-1">
+          <span className="text-3xl font-black text-foreground mt-1 tracking-tight">
             {currentSteps.toLocaleString()} <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">/ {(stepsGoal/1000).toFixed(0)}k</span>
           </span>
         </div>
         <div className="bg-surface rounded-2xl p-5 border border-gray-100 flex flex-col gap-1 shadow-sm fluid-transition hover:border-secondary/40 cursor-pointer">
           <span className="text-[10px] font-bold text-secondary uppercase tracking-widest">Hydration</span>
-          <span className="text-2xl font-extrabold text-foreground mt-1">
+          <span className="text-3xl font-black text-foreground mt-1 tracking-tight">
             {(currentWater/1000).toFixed(1)} <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">/ {(waterGoal/1000).toFixed(1)} L</span>
           </span>
         </div>

@@ -23,11 +23,11 @@ export function BottomNav() {
           <span className="text-[10px] font-medium">Trends</span>
         </Link>
         
-        <div className="relative w-16 flex justify-center">
-          <Link href="/log" aria-label="Quick Log" className="absolute -top-10 bg-primary text-white p-3.5 rounded-full shadow-lg shadow-primary/30 hover:bg-emerald-600 hover:scale-105 active:scale-95 fluid-transition">
-            <PlusCircle size={28} strokeWidth={2.5} />
-          </Link>
-        </div>
+        <Link href="/log" className="flex flex-col items-center gap-1 hover:text-gray-900 group w-16 fluid-transition">
+          <div className="bg-primary text-white p-2.5 rounded-full shadow-md group-hover:bg-emerald-600 group-active:scale-95 fluid-transition flex items-center justify-center">
+            <PlusCircle size={24} strokeWidth={2.5} />
+          </div>
+        </Link>
         
         <Link href="/profile" className="flex flex-col items-center gap-1 hover:text-gray-900 group w-16 fluid-transition">
           <User size={24} className="group-active:scale-95 fluid-transition" />

@@ -22,9 +22,9 @@ export function LumeRings({
   const gap = 4;
 
   const rings = [
-    { radius: 110, progress: stepsProgress, color: "text-primary" },    // Outer (Green)
-    { radius: 110 - strokeWidth - gap, progress: waterProgress, color: "text-secondary" }, // Middle (Blue)
-    { radius: 110 - (strokeWidth + gap) * 2, progress: caloriesProgress, color: "text-accent" }, // Inner (Orange)
+    { radius: 110, progress: stepsProgress, color: "text-emerald-500" },    // Outer (Green)
+    { radius: 110 - strokeWidth - gap, progress: waterProgress, color: "text-blue-500" }, // Middle (Blue)
+    { radius: 110 - (strokeWidth + gap) * 2, progress: caloriesProgress, color: "text-orange-500" }, // Inner (Orange)
   ];
 
   return (
@@ -52,7 +52,7 @@ export function LumeRings({
                 fill="none"
                 strokeWidth={strokeWidth}
                 strokeLinecap="round"
-                className={cn(ring.color, "fluid-transition")}
+                className={cn(ring.color, "transition-all duration-1000 ease-out")}
                 style={{
                   strokeDasharray: circumference,
                   strokeDashoffset: strokeDashoffset,
