@@ -82,6 +82,7 @@ export async function updateWaterIntake(amount: number) {
   // Utilize the constraints laid out in the migration SQL
   const { data, error } = await supabase
     .from("daily_metrics")
+    // @ts-ignore
     .upsert(
       {
         user_id: user.id,

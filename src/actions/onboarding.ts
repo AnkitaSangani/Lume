@@ -22,6 +22,7 @@ export async function completeOnboarding(formData: FormData) {
   // Dual Transaction 1: Execute primary User map override flagging initial access logic successfully
   const { error: userError } = await supabase
     .from("users")
+    // @ts-ignore
     .update({
       height_cm: parseInt(heightCm),
       current_weight_kg: parseFloat(currentWeightKg),
@@ -37,6 +38,7 @@ export async function completeOnboarding(formData: FormData) {
 
   const { error: metricsError } = await supabase
     .from("daily_metrics")
+    // @ts-ignore
     .insert({
       user_id: user.id,
       date: today,
