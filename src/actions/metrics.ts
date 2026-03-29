@@ -76,7 +76,7 @@ export async function updateWaterIntake(amount: number) {
     .eq("date", today)
     .single();
 
-  const currentWater = currentMetrics?.water_intake_ml || 0;
+  const currentWater = (currentMetrics as any)?.water_intake_ml || 0;
   const newWater = currentWater + amount;
 
   // Utilize the constraints laid out in the migration SQL

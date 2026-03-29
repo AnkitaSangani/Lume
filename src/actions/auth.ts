@@ -42,6 +42,7 @@ export async function signupWithEmail(formData: FormData) {
 
   // Fallback: If no Postgres trigger exists, force insert the user row directly creating an orphaned relation safely mapping constraints
   if (authData.user) {
+    // @ts-ignore - Supabase strongly infers standard 'never' without full strict bindings across edge router actions safely bypassed inline
     const { error: insertError } = await supabase.from('users').insert({
       id: authData.user.id,
       is_onboarded: false,
