@@ -23,13 +23,13 @@ export async function completeOnboarding(formData: FormData) {
   const { error: userError } = await supabase
     .from("users")
     // @ts-ignore
-    .update({
+    .upsert({
+      id: user.id,
       height_cm: parseInt(heightCm),
       current_weight_kg: parseFloat(currentWeightKg),
       target_weight_kg: parseFloat(targetWeightKg),
       is_onboarded: true,
-    })
-    .eq("id", user.id);
+    });
 
   if (userError) return { error: userError.message };
 
