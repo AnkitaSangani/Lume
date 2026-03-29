@@ -41,7 +41,11 @@ export async function markMedicationTaken(medId: string, date: string) {
   }
 
   // @ts-ignore: Bypasses strict TS tuple bounds inferred as 'never' on Supabase update generic
-  const { error } = await supabase.from("medication_logs").update({ status: 'taken' }).eq('med_id', medId).eq('date', date);
+  const { error } = await supabase.from("medication_logs").upsert({ 
+    med_id: medId, 
+    date: date, 
+    status: 'taken' 
+  });
 
   if (error) {
     throw new Error(error.message);
