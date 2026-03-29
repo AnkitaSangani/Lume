@@ -1,6 +1,6 @@
 export const runtime = 'edge';
 
-import { openai } from "@ai-sdk/openai";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateObject } from "ai";
 import { z } from "zod";
 
@@ -15,9 +15,13 @@ export async function POST(req: Request) {
       });
     }
 
-    // Leverages perfectly constrained JSON mapping forcing AI to follow the data-structure natively
+    // Leverages perfectly constrained JSON mapping dynamically referencing Gemini model parameters using custom variable environments securely
+    const google = createGoogleGenerativeAI({
+      apiKey: process.env.AI_API_KEY,
+    });
+
     const { object } = await generateObject({
-      model: openai("gpt-4o-mini"),
+      model: google("gemini-1.5-flash"),
       system: "You are an elite, highly-optimized AI nutritionist and macro estimator.",
       messages: [
         {
