@@ -2,6 +2,8 @@ import { getDashboardPayload } from "@/actions/metrics";
 import { redirect } from "next/navigation";
 import { User } from "lucide-react";
 
+export const revalidate = 3600;
+
 export default async function ProfilePage() {
   const data = await getDashboardPayload();
 

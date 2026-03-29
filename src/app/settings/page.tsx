@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { LogOut, Settings as SettingsIcon } from "lucide-react";
 
+export const revalidate = 3600;
+
 export default function SettingsPage() {
   
   // Inline Server Action mapping securely binding Vercel Edge drop
